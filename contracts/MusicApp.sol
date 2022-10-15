@@ -74,7 +74,7 @@ contract MusicApp {
     * @dev upload song
     * @param song cover image, song, song name, genre, release Date
     */
-    function uploadsong(string memory _songcover,string memory _song, string memory _songname, string memory _genre, string memory _releaseDate) public {
+    function uploadSong(string memory _songcover,string memory _song, string memory _songname, string memory _genre, string memory _releaseDate) public {
         require(bytes(_songcover).length>0,"Please Provide Song Cover");
         require(bytes(_songname).length > 0, "Please Provide Name for Song" );
         require(bytes(_song).length > 0, "Please Provide Song");
@@ -105,7 +105,7 @@ contract MusicApp {
     * @notice only owner of the song can update song
     * @param song id, song cover image, song, song name, genre, release Date
     */
-    function updatesong(uint256 _id, string memory _songcover, string memory _song, string memory _songname, string memory _genre, string memory _releaseDate) public onlyOwner(_id) {
+    function updateSong(uint256 _id, string memory _songcover, string memory _song, string memory _songname, string memory _genre, string memory _releaseDate) public onlyOwner(_id) {
         require(_id > 0, "Sorry This Song Does not Exists");
         require(bytes(_songname).length > 0, "Please Provide Name for Song" );
         require(bytes(_song).length > 0, "Please Provide Song");
