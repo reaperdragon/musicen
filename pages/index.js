@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
 import Dashboard from "./dashboard";
 
 export default function Home() {
@@ -31,16 +29,20 @@ export default function Home() {
     <div>
       <Head>
         <title>Musicen</title>
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/logo-main.png" />
       </Head>
       {isWalletConnected ? (
         <Dashboard />
       ) : (
-        <div className="relative font-body">
-          <section className="max-w-[1240px] h-screen my-0 mx-auto grid grid-cols-2 items-center justify-center gap-3 md:order-second md:grid-cols-1">
-            <div className="flex flex-col p-1 md:items-center md:justify-center">
+        <div className="relative font-body overflow-hidden">
+          <div className="w-[705px] h-[405px] absolute left-[-353px] top-[-198px] bg-blue-800/50 blur-[150px] rounded-full"></div>
+
+          <div className="w-[705px] h-[405px] absolute left-[1053px] top-[700px] bg-blue-800/50 blur-[150px] rounded-full md:left-[560px] md:top-[650px] sm:top-[450px] sm:left-[150px]"></div>
+
+          <section className="max-w-[1240px] h-screen my-0 mx-auto grid grid-cols-2 items-center justify-center gap-3 md:order-second md:grid-cols-1 ">
+            <div className="flex flex-col p-1 md:items-center md:justify-center sm:p-2">
               <div className="flex gap-2 items-center md:justify-center">
-                <h1 className="font-body text-8xl md:text-5xl md:text-center">
+                <h1 className="font-body text-8xl md:text-5xl md:text-center font-bold my-1 text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800 leading-[120px] md:leading-normal sm:text-[30px]">
                   Musicen
                 </h1>
                 <img
@@ -61,9 +63,9 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="md:order-first ">
-              <div className=" flex  items-center justify-center ">
-                <img src="/Mockup.png" alt="mockup" className="" />
+            <div className="md:hidden  flex items-center justify-center ">
+              <div className="flex items-center justify-center md:w-full md:h-full">
+                <img src="/Mockup.png" alt="mockup" className="md:h-full" />
               </div>
             </div>
           </section>
