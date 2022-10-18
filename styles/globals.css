@@ -31,3 +31,8 @@ a {
     background: black;
   }
 }
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}

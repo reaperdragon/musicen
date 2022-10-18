@@ -71,7 +71,7 @@ const Upload = () => {
         <link rel="icon" href="/logo-main.png" />
       </Head>
 
-      <div className="relative font-body overflow-x-hidden overflow-y-auto">
+      <div className="relative font-body overflow-x-hidden sm:overflow-y-auto">
         <div className="w-[705px] h-[405px] absolute left-[-353px] top-[-198px] bg-blue-800/50 blur-[150px] rounded-full"></div>
 
         <div className="w-[705px] h-[405px] absolute left-[1053px] top-[700px] bg-blue-800/50 blur-[150px] rounded-full md:left-[560px] md:top-[650px] sm:top-[450px] sm:left-[150px]"></div>
@@ -150,7 +150,15 @@ const Upload = () => {
                   <audio src={song.song} controls></audio>
                 </div>
               ) : (
-                <div>No Song</div>
+                <div
+                  className="w-full bg-[#272D37]/60 rounded-3xl p-8 m border border-solid border-sky-700 cursor-pointer flex items-center justify-center flex-col gap-2"
+                  onClick={triggerOnChangeSong}
+                >
+                  <p className="text-center">
+                    {" "}
+                    Click Here to Select Song or Click Button Below 👇🏻{" "}
+                  </p>
+                </div>
               )}
 
               <button
