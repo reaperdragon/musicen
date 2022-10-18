@@ -6,11 +6,14 @@ const Upload = () => {
   const [songDetails, setSongDetails] = useState({
     name: "",
     genre: "",
-    song: "",
+    song: "" ,
     image: "",
   });
 
+  const [song, setSong] = useState({ song: "" });
+
   const [file, setFile] = useState("");
+
   const [songFile, setSongFile] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -46,11 +49,11 @@ const Upload = () => {
     const uploadedFile = e.target.files[0];
     if (!uploadedFile) return;
     setSongDetails({ ...songDetails, song: uploadedFile });
-
+    setSong({...song,song: URL.createObjectURL(uploadedFile)})
     let reader = new FileReader();
     reader.onload = function () {
       if (reader.result) {
-        setSongDetails(Buffer.from(reader.result));
+        setSongFile(Buffer.from(reader.result));
       }
     };
     reader.readAsArrayBuffer(uploadedFile);
@@ -58,8 +61,8 @@ const Upload = () => {
 
   const handleUpload = async () => {};
 
-  console.log(songDetails.image);
-  console.log(songDetails?.song?.name);
+  console.log(songDetails);
+  console.log(songDetails.song);
 
   return (
     <div>
@@ -132,23 +135,27 @@ const Upload = () => {
             <div className="flex flex-col">
               <label className="text-2xl my-1 font-semibold">Song</label>
               <input
-                id="selectImage"
+                id="selectSong"
                 style={{ display: "none" }}
                 type="file"
                 onChange={handleFileChangeSong}
                 ref={songDataRef}
               />
-              {songDetails ? (
-                <div>
-                  Song Found
+              {songDetails.song !== "" ? (
+                <div
+                  className="w-full bg-[#272D37]/60 rounded-3xl p-8 m border border-solid border-sky-700 cursor-pointer flex items-center justify-center flex-col gap-2"
+                  onClick={triggerOnChangeSong}
+                >
+                  <h2 className="text-center ">{songDetails.song.name}</h2>
+                  <audio src={song.song} controls></audio>
                 </div>
               ) : (
-                <div>Song Not Found</div>
+                <div>No Song</div>
               )}
 
               <button
                 type="button"
-                className="bg-[#1E50FF] outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90"
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90  mt-6"
                 onClick={triggerOnChangeSong}
               >
                 Select Song
@@ -156,7 +163,7 @@ const Upload = () => {
             </div>
             <button
               type="button"
-              className="bg-[#1E50FF] outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90"
+              className="bg-[#1E50FF] outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90 sm:mb-10"
               onClick={handleUpload}
               disabled={loading}
             >
