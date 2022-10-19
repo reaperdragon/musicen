@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@bundlr-network/client": "^0.7.8",
     "@openzeppelin/contracts": "^4.7.3",
     "bignumber.js": "^9.1.0",
     "dotenv": "^16.0.3",
+    "gql": "^1.1.2",
+    "moment": "^2.29.4",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
