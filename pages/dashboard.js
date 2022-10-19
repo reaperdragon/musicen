@@ -1,8 +1,11 @@
 import { gql, useApolloClient } from "@apollo/client";
 import Head from "next/head";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 import React, { useEffect, useState } from "react";
 import { truncateEthAddress } from "../utils/truncAddress";
+import { Pause, Play } from "iconsax-react";
 
 
 const mainURL = `https://arweave.net/`;
@@ -24,6 +27,12 @@ const FETCH_SONGS = gql`
 
 const Dashboard = () => {
   const [songs, setSongs] = useState([]);
+
+  const [currentSong, setCurrentSong] = useState("");
+
+  const [play, setPlay] = useState(false);
+
+  const toggle = () => setPlay(!play);
 
   const clientApollo = useApolloClient();
 
@@ -88,16 +97,55 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <h3 className="text-2xl my-2">{data.songName}</h3>
-                <h4 className="text-slate-500">
-                  Artist:{" "}
-                  <span className="font-semibold  text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800">
-                    {truncateEthAddress(data.songArtist)}
-                  </span>
-                </h4>
+                <div className="flex items-center justify-between">
+                  <h4 className="text-slate-500">
+                    Artist:{" "}
+                    <span className="font-semibold  text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800">
+                      {truncateEthAddress(data.songArtist)}
+                    </span>
+                  </h4>
+                  <div
+                    className="bg-sky-800 rounded-full p-3 cursor-pointer"
+                    onClick={() => {
+                      setCurrentSong(data.song);
+                    }}
+                  >
+                    {" "}
+                    {!play ? (
+                      <Play
+                        size="32"
+                        color="#d9e3f0"
+                        variant="Bold"
+                        onClick={() => toggle()}
+                      />
+                    ) : (
+                      <Pause
+                        size="32"
+                        color="#d9e3f0"
+                        variant="Bold"
+                        onClick={() => toggle()}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
         </div>
       </div>
+      { play ? (
+        <AudioPlayer
+          autoPlay={true}
+          src={mainURL + currentSong}
+          className="absolute bottom-0"
+          
+        />
+      ) : (
+        <AudioPlayer
+          src={mainURL + currentSong}
+          className="absolute bottom-0"
+          
+        />
+      )}
     </div>
   );
 };
