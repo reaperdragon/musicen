@@ -11,7 +11,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class ExampleEntity extends Entity {
+export class Song extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,18 +19,18 @@ export class ExampleEntity extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save ExampleEntity entity without an ID");
+    assert(id != null, "Cannot save Song entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type ExampleEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Song must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("ExampleEntity", id.toString(), this);
+      store.set("Song", id.toString(), this);
     }
   }
 
-  static load(id: string): ExampleEntity | null {
-    return changetype<ExampleEntity | null>(store.get("ExampleEntity", id));
+  static load(id: string): Song | null {
+    return changetype<Song | null>(store.get("Song", id));
   }
 
   get id(): string {
@@ -42,24 +42,6 @@ export class ExampleEntity extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get count(): BigInt {
-    let value = this.get("count");
-    return value!.toBigInt();
-  }
-
-  set count(value: BigInt) {
-    this.set("count", Value.fromBigInt(value));
-  }
-
-  get songId(): BigInt {
-    let value = this.get("songId");
-    return value!.toBigInt();
-  }
-
-  set songId(value: BigInt) {
-    this.set("songId", Value.fromBigInt(value));
-  }
-
   get songcover(): string {
     let value = this.get("songcover");
     return value!.toString();
@@ -67,5 +49,59 @@ export class ExampleEntity extends Entity {
 
   set songcover(value: string) {
     this.set("songcover", Value.fromString(value));
+  }
+
+  get song(): string {
+    let value = this.get("song");
+    return value!.toString();
+  }
+
+  set song(value: string) {
+    this.set("song", Value.fromString(value));
+  }
+
+  get songName(): string {
+    let value = this.get("songName");
+    return value!.toString();
+  }
+
+  set songName(value: string) {
+    this.set("songName", Value.fromString(value));
+  }
+
+  get songArtist(): Bytes {
+    let value = this.get("songArtist");
+    return value!.toBytes();
+  }
+
+  set songArtist(value: Bytes) {
+    this.set("songArtist", Value.fromBytes(value));
+  }
+
+  get genre(): string {
+    let value = this.get("genre");
+    return value!.toString();
+  }
+
+  set genre(value: string) {
+    this.set("genre", Value.fromString(value));
+  }
+
+  get releaseDate(): string {
+    let value = this.get("releaseDate");
+    return value!.toString();
+  }
+
+  set releaseDate(value: string) {
+    this.set("releaseDate", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value!.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
   }
 }
