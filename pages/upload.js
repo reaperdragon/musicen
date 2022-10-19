@@ -214,7 +214,7 @@ const Upload = () => {
             ) : (
               <div className="h-full  flex justify-center items-center">
                 <h2 className="text-center">
-                  Please Select Cover For Yor Music
+                  Please Select Cover For Your Music
                 </h2>
               </div>
             )}

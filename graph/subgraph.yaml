@@ -1,0 +1,26 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MusicApp
+    network: mumbai
+    source:
+      address: "0x003C24D59C8191443E7aE9B18381dA94B1bAA871"
+      abi: MusicApp
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - UpdateSong
+        - UploadSong
+      abis:
+        - name: MusicApp
+          file: ./abis/MusicApp.json
+      eventHandlers:
+        - event: UpdateSong(uint256,string,string,string,address,string,string)
+          handler: handleUpdateSong
+        - event: UploadSong(uint256,string,string,string,address,string,string)
+          handler: handleUploadSong
+      file: ./src/music-app.ts
