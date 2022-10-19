@@ -85,31 +85,23 @@ const BundlrContextProvider = ({ children }) => {
 
   async function uploadFile(file) {
     try {
-      console.log(file);
       let tx = await bundlrInstance.uploader.upload(file, [
         { name: "Content-Type", value: "image/png" },
       ]);
       return tx;
     } catch (error) {
-      toast({
-        title: error.message || "Something went wrong!",
-        status: "error",
-      });
+      toast.error("Something went wrong!", error.message);
     }
   }
 
   async function uploadFileSong(file) {
     try {
-      console.log(file);
       let tx = await bundlrInstance.uploader.upload(file, [
         { name: "Content-Type", value: "audio/mpeg" },
       ]);
       return tx;
     } catch (error) {
-      toast({
-        title: error.message || "Something went wrong!",
-        status: "error",
-      });
+      toast.error("Something went wrong!", error.message);
     }
   }
 

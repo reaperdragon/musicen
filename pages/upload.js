@@ -1,15 +1,28 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
+import { useBundler } from "../context/bundlrContext";
+import { ethers } from "ethers";
+import { toast } from "react-toastify";
+import { FundWallet } from "../components";
+
+const mainURL = `https://arweave.net/`;
 
 const Upload = () => {
-  
   const [songDetails, setSongDetails] = useState({
     name: "",
     genre: "Pop",
-    song: "" ,
+    song: "",
     image: "",
   });
+
+  const {
+    initialiseBundlr,
+    bundlrInstance,
+    balance,
+    uploadFile,
+    uploadFileSong,
+  } = useBundler();
 
   const [song, setSong] = useState({ song: "" });
 
@@ -50,7 +63,7 @@ const Upload = () => {
     const uploadedFile = e.target.files[0];
     if (!uploadedFile) return;
     setSongDetails({ ...songDetails, song: uploadedFile });
-    setSong({...song,song: URL.createObjectURL(uploadedFile)})
+    setSong({ ...song, song: URL.createObjectURL(uploadedFile) });
     let reader = new FileReader();
     reader.onload = function () {
       if (reader.result) {
@@ -60,10 +73,80 @@ const Upload = () => {
     reader.readAsArrayBuffer(uploadedFile);
   }
 
-  const handleUpload = async () => {};
+  const handleUpload = async () => {
+    const { name,
+      genre,
+      song,
+      image } = songDetails;
+    
+    if (name === "") {
+       toast.error("Please provide name for Song");
+    } else if (genre === "") {
+       toast.error("Please provide genre for Song");
+    } else if (song === "") {
+      toast.error("Please Select a Song");
+    } else if (image === "") {
+      toast.error("Please Provide Cover Image for Song");
+    } else {
+      setLoading(true);
+      const url = await uploadFile(file);
+      console.log(url)
+      console.log(url.data.id)
+      
+      uploadToArweave(url);
+    }
+  };
+
+  const uploadToArweave = async (imgURL) => {
+    const { song } = songDetails;
+    console.log(imgURL);
+    setLoading(false);
+     const url = await uploadFileSong(songFile);
+     console.log(url);
+     console.log(url.data.id);
+
+     upload(imgURL, url);
+  };
+
+  const upload = async (imgURL, songURL) => {
+    
+  }
 
   console.log(songDetails);
   console.log(songDetails.song);
+
+    if (!bundlrInstance) {
+      return (
+        <div className="justify-center items-center h-screen flex font-body flex-col">
+          <h3 className="text-4xl font-bold sm:text-xl">
+            Let&apos;s initialise Bundlr now 💱
+          </h3>
+          <button
+            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 
+            dark:focus:ring-blue-800 font-medium rounded-full text-sm px-8 py-5 text-center mr-2 mb-2 transition-all ease-in-out delay-150 duration-150
+            hover:translate-y-1 text-1xl hover:shadow-lg hover:shadow-blue-500/80 mt-2 cursor-pointer outline-none border-none"
+            onClick={initialiseBundlr}
+          >
+            Initialise Bundlr 💸
+          </button>
+        </div>
+      );
+    }
+
+    if (
+      !balance ||
+      (Number(balance) <= 0 && !balance) ||
+      Number(balance) <= 0.05
+    ) {
+      return (
+        <div className="flex flex-col items-center justify-center h-screen ">
+          <h3 className="text-4xl font-body text-center">
+            Oops! Before Publishing NFT Please Add Some Funds.🪙
+          </h3>
+          <FundWallet />
+        </div>
+      );
+    }
 
   return (
     <div>
@@ -176,7 +259,7 @@ const Upload = () => {
 
               <button
                 type="button"
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90  mt-6 gradient-background"
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-350 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90  mt-6 gradient-background"
                 onClick={triggerOnChangeSong}
               >
                 Select Song
