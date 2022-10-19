@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 
 const Upload = () => {
+  
   const [songDetails, setSongDetails] = useState({
     name: "",
-    genre: "",
+    genre: "Pop",
     song: "" ,
     image: "",
   });
@@ -100,7 +101,7 @@ const Upload = () => {
             ) : (
               <div className="h-full  flex justify-center items-center">
                 <h2 className="text-center">
-                  Please Select Here to See Your File Preview
+                  Please Select Cover For Yor Music
                 </h2>
               </div>
             )}
@@ -121,15 +122,27 @@ const Upload = () => {
 
             <div className="flex flex-col">
               <label className="text-2xl my-1 font-semibold">Genre</label>
-              <input
-                placeholder="eg. Hip Hop "
-                className="px-5 py-3 rounded-xl
-               placeholder:text-slate-400 outline-none border-none  bg-[#272D37]/60 placeholder:font-body font-body"
+              <select
                 value={songDetails.genre}
                 onChange={(e) =>
                   setSongDetails({ ...songDetails, genre: e.target.value })
                 }
-              />
+                name="category"
+                className="px-5 py-3 rounded-xl
+               placeholder:text-slate-400 outline-none border-none  bg-[#272D37]/60 placeholder:font-body font-body"
+              >
+                <option>Pop</option>
+                <option>Hip-Hop</option>
+                <option>Electronic Dance Music (EDM)</option>
+                <option>Rock</option>
+                <option>R&B</option>
+                <option>Latin</option>
+                <option>K-Pop</option>
+                <option>Country</option>
+                <option>Classical</option>
+                <option>Metal</option>
+                <option>Other</option>
+              </select>
             </div>
 
             <div className="flex flex-col">
@@ -163,7 +176,7 @@ const Upload = () => {
 
               <button
                 type="button"
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90  mt-6"
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 outline-none border-none py-3 px-5 rounded-xl font-body cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:shadow-sky-600 w-auto focus:scale-90  mt-6 gradient-background"
                 onClick={triggerOnChangeSong}
               >
                 Select Song
