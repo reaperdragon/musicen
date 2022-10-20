@@ -24,7 +24,12 @@ const FETCH_SONGS = gql`
 const Dashboard = () => {
   const [songs, setSongs] = useState([]);
 
-  const [currentSong, setCurrentSong] = useState("");
+  const [currentSong, setCurrentSong] = useState({
+    id: "",
+    song: "",
+    image: "",
+    songName: "",
+  });
 
   const [playing, setPlaying] = useState(false);
 
@@ -77,7 +82,7 @@ const Dashboard = () => {
     getSongs();
   }, [songs]);
 
-  console.log(songs);
+  console.log(currentSong)
 
   return (
     <div className="font-body overflow-hidden">
@@ -93,14 +98,19 @@ const Dashboard = () => {
           </h1>
           <img src="/logo.png" alt="logo" className="w-[50px] h-[50px]" />
         </div>
-        <div className="max-w-[1240px] mx-auto my-0 grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 p-3 sm:p-5 gap-2">
+        <div className="max-w-[1240px] mx-auto my-0 grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 p-3 sm:p-5 gap-2 sm:mb-[50px]">
           {songs?.songs?.length > 0 &&
             songs.songs.map((data) => (
               <div
                 key={data.id}
-                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer"
+                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer "
                 onClick={() => {
-                  setCurrentSong(data.song);
+                  setCurrentSong({
+                    id: data.id,
+                    song: data.song,
+                    image: data.songcover,
+                    songName: data.songName,
+                  });
                   handlePlay();
                 }}
               >
@@ -127,16 +137,27 @@ const Dashboard = () => {
             ))}
         </div>
       </div>
-      {playing ? (
-        <audio
-          src={mainURL + currentSong}
-          controls
-          autoPlay
-          ref={myRef}
-        ></audio>
-      ) : (
-        <audio src={mainURL + currentSong} controls ref={myRef}></audio>
-      )}
+      <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
+        <div className="flex items-center justify-stretch gap-2">
+          <img src={mainURL + currentSong.image} alt={currentSong.songName} className="w-[40px] h-[40px] rounded-lg" />
+          {playing ? (
+            <audio
+              src={mainURL + currentSong.song}
+              controls
+              autoPlay
+              ref={myRef}
+              className=" w-full "
+            ></audio>
+          ) : (
+            <audio
+              src={mainURL + currentSong.song}
+              controls
+              ref={myRef}
+              className=" w-full "
+            ></audio>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
