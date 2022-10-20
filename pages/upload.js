@@ -101,12 +101,14 @@ const Upload = () => {
     } else {
       setLoading(true);
       const url = await uploadFile(file);
+      console.log(url)
       uploadToArweave(url.data.id);
     }
   };
 
   const uploadToArweave = async (imgURL) => {
     const url = await uploadFileSong(songFile);
+    console.log(url);
     upload(imgURL, url.data.id);
   };
 
@@ -166,12 +168,12 @@ const Upload = () => {
   if (
     !balance ||
     (Number(balance) <= 0 && !balance) ||
-    Number(balance) <= 0.05
+    Number(balance) <= 0.06
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-screen ">
         <h3 className="text-4xl font-body text-center">
-          Oops! Before Publishing NFT Please Add Some Funds.🪙
+          Oops! Before Uploading Song Please Add Some Funds.🪙
         </h3>
         <FundWallet />
       </div>

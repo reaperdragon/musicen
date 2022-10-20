@@ -3,10 +3,9 @@ import Head from "next/head";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { truncateEthAddress } from "../utils/truncAddress";
 import { Pause, Play } from "iconsax-react";
-
 
 const mainURL = `https://arweave.net/`;
 
@@ -30,9 +29,23 @@ const Dashboard = () => {
 
   const [currentSong, setCurrentSong] = useState("");
 
-  const [play, setPlay] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlay(!play);
+  const toggle = () => setPlaying(!playing);
+
+  const myRef = useRef();
+
+  const startAudio = () => {
+    myRef.current.play();
+
+    setPlaying(true);
+  };
+
+  const pauseAudio = () => {
+    console.log("here");
+    myRef.current.pause();
+    setPlaying(false);
+  };
 
   const clientApollo = useApolloClient();
 
@@ -111,19 +124,25 @@ const Dashboard = () => {
                     }}
                   >
                     {" "}
-                    {!play ? (
+                    {!playing ? (
                       <Play
                         size="32"
                         color="#d9e3f0"
                         variant="Bold"
-                        onClick={() => toggle()}
+                        onClick={() => {
+                          startAudio();
+                          toggle();
+                        }}
                       />
                     ) : (
                       <Pause
                         size="32"
                         color="#d9e3f0"
                         variant="Bold"
-                        onClick={() => toggle()}
+                        onClick={() => {
+                          pauseAudio();
+                          toggle();
+                        }}
                       />
                     )}
                   </div>
@@ -132,19 +151,15 @@ const Dashboard = () => {
             ))}
         </div>
       </div>
-      { play ? (
-        <AudioPlayer
-          autoPlay={true}
+      {playing ? (
+        <audio
           src={mainURL + currentSong}
-          className="absolute bottom-0"
-          
-        />
+          controls
+          autoPlay
+          ref={myRef}
+        ></audio>
       ) : (
-        <AudioPlayer
-          src={mainURL + currentSong}
-          className="absolute bottom-0"
-          
-        />
+        <audio src={mainURL + currentSong} controls ref={myRef}></audio>
       )}
     </div>
   );

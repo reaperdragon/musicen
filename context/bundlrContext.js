@@ -85,8 +85,12 @@ const BundlrContextProvider = ({ children }) => {
 
   async function uploadFile(file) {
     try {
+      console.log(file)
       let tx = await bundlrInstance.uploader.upload(file, [
-        { name: "Content-Type", value: "image/png" },
+        {
+          name: "Content-Type",
+          value: "image/png" || "image/jpeg" || "image/jpg" || "	image/gif" || "image/tiff",
+        },
       ]);
       return tx;
     } catch (error) {
