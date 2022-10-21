@@ -2,7 +2,7 @@ import { gql, useApolloClient } from "@apollo/client";
 import Head from "next/head";
 
 import React, { useEffect, useRef, useState } from "react";
-import {AudioPlayer}  from '../components'
+import { AudioPlayer } from "../components";
 
 const mainURL = `https://arweave.net/`;
 
@@ -21,7 +21,6 @@ const FETCH_SONGS = gql`
 `;
 
 const Dashboard = () => {
-
   const [songs, setSongs] = useState([]);
 
   const [currentSong, setCurrentSong] = useState({
@@ -32,8 +31,6 @@ const Dashboard = () => {
   });
 
   const [playing, setPlaying] = useState(false);
-
-
 
   const myRef = useRef(null);
 
@@ -103,7 +100,7 @@ const Dashboard = () => {
             songs.songs.map((data) => (
               <div
                 key={data.id}
-                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer "
+                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer hover:bg-slate-600/60 hover:border-none"
                 onClick={() => {
                   setCurrentSong({
                     id: data.id,
@@ -136,7 +133,6 @@ const Dashboard = () => {
       <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
         {currentSong && <AudioPlayer currentSong={currentSong} />}
       </div>
-      
     </div>
   );
 };

@@ -113,7 +113,7 @@ const AudioPlayer = ({ currentSong }) => {
           </button>
           <button
             onClick={togglePlayPause}
-            className="bg-blue-700 p-3 rounded-full"
+            className="bg-blue-700 p-3 rounded-full cursor-pointer transition duration-250 ease-in-out  hover:drop-shadow-xl hover:-translate-y-1"
           >
             {isPlaying ? (
               <Pause size="32" color="#d9e3f0" variant="Bold" />
