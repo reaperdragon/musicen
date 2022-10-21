@@ -129,11 +129,6 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-                <h3 className="text-2xl my-2">
-                  {data?.songName?.length > 18
-                    ? data?.songName?.slice(0, 18) + "..."
-                    : data?.songName}
-                </h3>
               </div>
             ))}
         </div>
@@ -173,9 +168,8 @@ const Dashboard = () => {
           )}
         </div>
       </div> */}
-      {currentSong && <AudioPlayer currentSong={currentSong} />}
-
-      
+      <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
+       {currentSong && <AudioPlayer currentSong={currentSong} />}</div>
     </div>
   );
 };

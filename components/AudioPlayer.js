@@ -6,7 +6,6 @@ import {
   Play,
 } from "iconsax-react";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../styles/AudioPlayer.module.css";
 import { truncateEthAddress } from "../utils/truncAddress";
 
 const mainURL = `https://arweave.net/`;
@@ -82,7 +81,7 @@ const AudioPlayer = ({ currentSong }) => {
   };
 
   return (
-    <div className="">
+    <div className="flex sm:flex-col md:flex-col">
       <audio
         src={mainURL + currentSong?.song}
         preload="metadata"
@@ -90,40 +89,58 @@ const AudioPlayer = ({ currentSong }) => {
       >
         {" "}
       </audio>
-      <div>
-        <img src={mainURL + currentSong.image} alt={currentSong.songName} />
-        <h4>{currentSong.songName}</h4>
-      </div>
-      <div>
-        <button onClick={backwardTen}>
-          <Backward10Seconds size="32" color="#d9e3f0" />
-        </button>
-        <button
-          onClick={togglePlayPause}
-          className="bg-blue-700 p-3 rounded-full"
-        >
-          {isPlaying ? (
-            <Pause size="32" color="#d9e3f0" variant="Bold" />
-          ) : (
-            <Play size="32" color="#d9e3f0" variant="Bold" />
-          )}
-        </button>
-        <button onClick={forwardTen}>
-          <Forward10Seconds size="32" color="#d9e3f0" />
-        </button>
+
+      <div className="md:flex md:flex-col md:justify-center md:items-center sm:gap-1 md:mb-2">
+        {currentSong.image !== "" ? (
+          <img
+            src={mainURL + currentSong.image}
+            alt={currentSong.songName}
+            className="w-[60px] h-[60px] rounded-lg sm:hidden"
+          />
+        ) : (
+          <img
+            src="/songcover-mockup.png"
+            alt="mockup"
+            className="w-[60px] h-[60px] rounded-lg sm:hidden"
+          />
+        )}
+
+        <h4>{currentSong.songName ? currentSong.songName : null}</h4>
       </div>
 
-      <div>
-        <div>{calculateTime(currentTime)}</div>
+      <div className="flex flex-col w-full justify-center gap-6 items-center">
+        <div className="flex justify-center items-center gap-3">
+          <button onClick={backwardTen}>
+            <Backward10Seconds size="32" color="#d9e3f0" />
+          </button>
+          <button
+            onClick={togglePlayPause}
+            className="bg-blue-700 p-3 rounded-full"
+          >
+            {isPlaying ? (
+              <Pause size="32" color="#d9e3f0" variant="Bold" />
+            ) : (
+              <Play size="32" color="#d9e3f0" variant="Bold" />
+            )}
+          </button>
+          <button onClick={forwardTen}>
+            <Forward10Seconds size="32" color="#d9e3f0" />
+          </button>
+        </div>
 
-        <input
-          type="range"
-          defaultValue={"0"}
-          ref={progressBar}
-          onChange={changeRange}
-        />
+        <div className="flex w-full items-center justify-evenly gap-2">
+          <div>{calculateTime(currentTime)}</div>
 
-        <div>{duration && !isNaN(duration) && calculateTime(duration)}</div>
+          <input
+            type="range"
+            defaultValue={"0"}
+            ref={progressBar}
+            onChange={changeRange}
+            className="w-[60%] progressBar"
+          />
+
+          <div>{duration && !isNaN(duration) && calculateTime(duration)}</div>
+        </div>
       </div>
     </div>
   );
