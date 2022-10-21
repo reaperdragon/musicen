@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import React, { useEffect, useRef, useState } from "react";
 import { AudioPlayer } from "../components";
+import { truncateEthAddress } from "../utils/truncAddress";
 
 const mainURL = `https://arweave.net/`;
 
@@ -13,6 +14,7 @@ const FETCH_SONGS = gql`
       songcover
       song
       songName
+      songArtist
       genre
       createdAt
       releaseDate
@@ -100,7 +102,7 @@ const Dashboard = () => {
             songs.songs.map((data) => (
               <div
                 key={data.id}
-                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer hover:bg-slate-600/60 hover:border-none"
+                className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer hover:bg-slate-600/60 hover:border-none transition duration-250 ease-in-out  hover:drop-shadow-xl hover:-translate-y-1 relative"
                 onClick={() => {
                   setCurrentSong({
                     id: data.id,
@@ -124,6 +126,13 @@ const Dashboard = () => {
                       </span>
                     </p>
                   </div>
+                </div>
+
+                <div className="absolute opacity-0 backdrop-blur-sm bg-black/50 hover:opacity-100 w-full h-full left-0 top-0 p-6">
+                  <h2 className="font-bold text-3xl ">{data.songName}</h2>
+                  <h4 className="font-semibold text-transparent text-2xl bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800 ">
+                    {truncateEthAddress(data.songArtist)}
+                  </h4>
                 </div>
               </div>
             ))}
