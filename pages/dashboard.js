@@ -4,6 +4,7 @@ import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import { truncateEthAddress } from "../utils/truncAddress";
 import { Pause, Play } from "iconsax-react";
+import {AudioPlayer}  from '../components'
 
 const mainURL = `https://arweave.net/`;
 
@@ -137,7 +138,8 @@ const Dashboard = () => {
             ))}
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
+
+      {/* <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
         <div className="flex items-center justify-stretch gap-2">
           {currentSong.image !== "" ? (
             <img
@@ -170,7 +172,10 @@ const Dashboard = () => {
             ></audio>
           )}
         </div>
-      </div>
+      </div> */}
+      {currentSong && <AudioPlayer currentSong={currentSong} />}
+
+      
     </div>
   );
 };
