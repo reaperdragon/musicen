@@ -1,4 +1,3 @@
-import { info } from "autoprefixer";
 import {
   Backward10Seconds,
   Forward10Seconds,
@@ -6,7 +5,6 @@ import {
   Play,
 } from "iconsax-react";
 import React, { useEffect, useRef, useState } from "react";
-import { truncateEthAddress } from "../utils/truncAddress";
 
 const mainURL = `https://arweave.net/`;
 

@@ -2,8 +2,6 @@ import { gql, useApolloClient } from "@apollo/client";
 import Head from "next/head";
 
 import React, { useEffect, useRef, useState } from "react";
-import { truncateEthAddress } from "../utils/truncAddress";
-import { Pause, Play } from "iconsax-react";
 import {AudioPlayer}  from '../components'
 
 const mainURL = `https://arweave.net/`;
@@ -23,6 +21,7 @@ const FETCH_SONGS = gql`
 `;
 
 const Dashboard = () => {
+
   const [songs, setSongs] = useState([]);
 
   const [currentSong, setCurrentSong] = useState({
@@ -34,7 +33,7 @@ const Dashboard = () => {
 
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+
 
   const myRef = useRef(null);
 
@@ -134,42 +133,10 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
-        <div className="flex items-center justify-stretch gap-2">
-          {currentSong.image !== "" ? (
-            <img
-              src={mainURL + currentSong.image}
-              alt={currentSong.songName}
-              className="w-[40px] h-[40px] rounded-lg"
-            />
-          ) : (
-            <img
-              src="/songcover-mockup.png"
-              alt={"mockup"}
-              className="w-[40px] h-[40px] rounded-lg"
-            />
-          )}
-
-          {playing ? (
-            <audio
-              src={mainURL + currentSong.song}
-              controls
-              autoPlay
-              ref={myRef}
-              className=" w-full "
-            ></audio>
-          ) : (
-            <audio
-              src={mainURL + currentSong.song}
-              controls
-              ref={myRef}
-              className=" w-full "
-            ></audio>
-          )}
-        </div>
-      </div> */}
       <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
-       {currentSong && <AudioPlayer currentSong={currentSong} />}</div>
+        {currentSong && <AudioPlayer currentSong={currentSong} />}
+      </div>
+      
     </div>
   );
 };
