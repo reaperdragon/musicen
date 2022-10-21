@@ -82,7 +82,7 @@ const Dashboard = () => {
     getSongs();
   }, [songs]);
 
-  console.log(currentSong)
+  console.log(currentSong);
 
   return (
     <div className="font-body overflow-hidden">
@@ -139,7 +139,20 @@ const Dashboard = () => {
       </div>
       <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
         <div className="flex items-center justify-stretch gap-2">
-          <img src={mainURL + currentSong.image} alt={currentSong.songName} className="w-[40px] h-[40px] rounded-lg" />
+          {currentSong.image !== "" ? (
+            <img
+              src={mainURL + currentSong.image}
+              alt={currentSong.songName}
+              className="w-[40px] h-[40px] rounded-lg"
+            />
+          ) : (
+            <img
+              src="/songcover-mockup.png"
+              alt={"mockup"}
+              className="w-[40px] h-[40px] rounded-lg"
+            />
+          )}
+
           {playing ? (
             <audio
               src={mainURL + currentSong.song}
