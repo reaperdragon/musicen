@@ -114,6 +114,13 @@ const Dashboard = () => {
           </h1>
           <img src="/logo.png" alt="logo" className="w-[50px] h-[50px]" />
         </div>
+
+        {songs?.songs?.length === 0 && (
+          <div className="max-w-[1240px] mx-auto my-0 font-body">
+            <h1 className="text-2xl text-center">NO Songs</h1>
+          </div>
+        )}
+
         <div className="max-w-[1240px] mx-auto my-0 grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 p-3 sm:p-5 gap-2 sm:mb-[50px]">
           {songs?.songs?.length > 0 &&
             songs.songs.map((data) => (
