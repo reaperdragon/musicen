@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 const mainURL = `https://arweave.net/`;
 
 const AudioPlayer = ({ currentSong }) => {
-  console.log(currentSong);
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [duration, setDuration] = useState(0);

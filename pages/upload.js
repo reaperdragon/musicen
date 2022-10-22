@@ -101,14 +101,14 @@ const Upload = () => {
     } else {
       setLoading(true);
       const url = await uploadFile(file);
-      console.log(url);
+
       uploadToArweave(url.data.id);
     }
   };
 
   const uploadToArweave = async (imgURL) => {
     const url = await uploadFileSong(songFile);
-    console.log(url);
+
     upload(imgURL, url.data.id);
   };
 

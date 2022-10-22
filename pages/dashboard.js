@@ -51,13 +51,13 @@ const Dashboard = () => {
   const myRef = useRef(null);
 
   const startAudio = () => {
-    console.log(myRef.current);
+  
     myRef?.current?.play();
     setPlaying(true);
   };
 
   const pauseAudio = () => {
-    console.log("here");
+  
     myRef?.current?.pause();
     setPlaying(false);
   };
@@ -75,7 +75,7 @@ const Dashboard = () => {
         fetchPolicy: "network-only",
       })
       .then(({ data }) => {
-        console.log(data);
+  
         setSongs(data);
       })
       .catch((error) => {
@@ -95,7 +95,6 @@ const Dashboard = () => {
     getSongs();
   }, [songs]);
 
-  console.log(currentSong);
 
   return (
     <div className="font-body  relative">
