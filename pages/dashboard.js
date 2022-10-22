@@ -2,7 +2,7 @@ import { gql, useApolloClient } from "@apollo/client";
 import Head from "next/head";
 
 import React, { useEffect, useRef, useState } from "react";
-import { AudioPlayer } from "../components";
+import { AudioPlayer, SongContainer } from "../components";
 import { truncateEthAddress } from "../utils/truncAddress";
 
 const mainURL = `https://arweave.net/`;
@@ -25,11 +25,25 @@ const FETCH_SONGS = gql`
 const Dashboard = () => {
   const [songs, setSongs] = useState([]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
   const [currentSong, setCurrentSong] = useState({
     id: "",
     song: "",
     image: "",
     songName: "",
+  });
+
+  const [selectedSong, setSelectedSong] = useState({
+    id: "",
+    song: "",
+    image: "",
+    songName: "",
+    artist: "",
+    genre: "",
+    releaseDate: "",
   });
 
   const [playing, setPlaying] = useState(false);
@@ -84,7 +98,7 @@ const Dashboard = () => {
   console.log(currentSong);
 
   return (
-    <div className="font-body overflow-hidden">
+    <div className="font-body overflow-hidden relative">
       <Head>
         <title>Musicen 🎵</title>
         <link rel="icon" href="/logo-main.png" />
@@ -129,17 +143,40 @@ const Dashboard = () => {
                 </div>
 
                 <div className="absolute opacity-0 backdrop-blur-sm bg-black/50 hover:opacity-100 w-full h-full left-0 top-0 p-6">
-                  <h2 className="font-bold text-3xl ">{data.songName}</h2>
-                  <h4 className="font-semibold text-transparent text-2xl bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800 ">
-                    {truncateEthAddress(data.songArtist)}
+                  <h2 className="font-bold text-3xl my-2"> {data.songName}</h2>
+                  <h4 className="font-semibold text-transparent text-2xl bg-clip-text bg-gradient-to-r from-sky-500 to-blue-800 my-2">
+                    Artist: {truncateEthAddress(data.songArtist)}
                   </h4>
+                  <button
+                    className="px-[25px] py-[15px] bg-[#1E50FF] outline-none border-none  rounded-xl font-body cursor-pointer transition duration-250 ease-in-out hover:translate-y-1 hover:drop-shadow-xl hover:shadow-sky-600 my-[15px] w-fit"
+                    onClick={() => {
+                      setSelectedSong({
+                        id: data.id,
+                        song: data.song,
+                        image: data.songcover,
+                        songName: data.songName,
+                        artist: data.songArtist,
+                        genre: data.genre,
+                        releaseDate: data.releaseDate,
+                      });
+                      setIsOpen(!isOpen);
+                    }}
+                  >
+                    More Details
+                  </button>
                 </div>
               </div>
             ))}
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md">
+      {isOpen ? (
+        <div className="fixed h-full w-full z-[100] top-0 left-0">
+          <SongContainer toggle={toggle} selectedSong={selectedSong} />
+        </div>
+      ) : null}
+
+      <div className="fixed bottom-0 left-0 w-full bg-black/40 p-2 backdrop-blur-md ">
         {currentSong && <AudioPlayer currentSong={currentSong} />}
       </div>
     </div>
