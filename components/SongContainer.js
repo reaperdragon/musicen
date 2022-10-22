@@ -9,7 +9,7 @@ const mainURL = `https://arweave.net/`;
 const SongContainer = ({ toggle, selectedSong }) => {
   return (
     <div
-      className="w-full h-full  backdrop-blur-sm bg-black/50 flex items-center justify-center "
+      className="w-full h-full  backdrop-blur-sm bg-black/50 flex items-center justify-center font-body "
       onClick={toggle}
     >
       <Head>
