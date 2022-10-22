@@ -1,7 +1,7 @@
 import { useApolloClient,gql } from '@apollo/client';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Header } from '../components'
+import { Header, SongContainer } from '../components'
 import { truncateEthAddress } from '../utils/truncAddress';
 
 const mainURL = `https://arweave.net/`;
@@ -11,6 +11,10 @@ const Search = () => {
   const [searchFilter, setSearchFilter] = useState("");
 
   const [songs, setSongs] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
     const [selectedSong, setSelectedSong] = useState({
       id: "",
@@ -104,15 +108,7 @@ const Search = () => {
                 <div
                   key={data.id}
                   className="border border-solid border-sky-800 rounded-xl p-3 sm:p-5 cursor-pointer hover:bg-slate-600/60 hover:border-none transition duration-250 ease-in-out  hover:drop-shadow-xl hover:-translate-y-1 relative"
-                  onClick={() => {
-                    setCurrentSong({
-                      id: data.id,
-                      song: data.song,
-                      image: data.songcover,
-                      songName: data.songName,
-                    });
-                    handlePlay();
-                  }}
+                 
                 >
                   <div className="w-full h-[320px] rounded-lg relative">
                     <img
@@ -158,6 +154,12 @@ const Search = () => {
                 </div>
               ))}
           </div>
+
+          {isOpen ? (
+            <div className="fixed h-full w-full z-[100] top-0 left-0">
+              <SongContainer toggle={toggle} selectedSong={selectedSong} />
+            </div>
+          ) : null}
         </div>
       ) : (
         <div className="flex gap-5 max-w-[1240px] mx-auto my-20 items-center justify-center ">
