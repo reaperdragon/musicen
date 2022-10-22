@@ -1,6 +1,5 @@
 import { gql, useApolloClient } from "@apollo/client";
 import Head from "next/head";
-
 import React, { useEffect, useRef, useState } from "react";
 import { AudioPlayer, SongContainer } from "../components";
 import { truncateEthAddress } from "../utils/truncAddress";
