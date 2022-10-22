@@ -3,6 +3,7 @@ import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import { AudioPlayer, SongContainer } from "../components";
 import { truncateEthAddress } from "../utils/truncAddress";
+import { Header } from "../components";
 
 const mainURL = `https://arweave.net/`;
 
@@ -97,11 +98,14 @@ const Dashboard = () => {
   console.log(currentSong);
 
   return (
-    <div className="font-body overflow-hidden relative">
+    <div className="font-body  relative">
       <Head>
         <title>Musicen 🎵</title>
         <link rel="icon" href="/logo-main.png" />
       </Head>
+
+      <Header />
+
       <div className="w-[705px] h-[405px] absolute left-[-353px] top-[-198px] bg-blue-800/50 blur-[150px] rounded-full"></div>
       <div>
         <div className="flex gap-5 max-w-[1240px] mx-auto my-20 items-center justify-center ">

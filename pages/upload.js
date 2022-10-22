@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { useBundler } from "../context/bundlrContext";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
-import { FundWallet } from "../components";
+import { FundWallet, Header } from "../components";
 import { ContractABI } from "../constants/ContractABI";
 
 const mainURL = `https://arweave.net/`;
@@ -101,7 +101,7 @@ const Upload = () => {
     } else {
       setLoading(true);
       const url = await uploadFile(file);
-      console.log(url)
+      console.log(url);
       uploadToArweave(url.data.id);
     }
   };
@@ -181,17 +181,17 @@ const Upload = () => {
   }
 
   return (
-    <div>
+    <div className="font-body  relative ">
       <Head>
         <title>Upload || Musicen</title>
         <link rel="icon" href="/logo-main.png" />
       </Head>
 
-      <div className="relative font-body overflow-x-hidden sm:overflow-y-auto">
-        <div className="w-[705px] h-[405px] absolute left-[-353px] top-[-198px] bg-blue-800/50 blur-[150px] rounded-full"></div>
+      <Header />
 
-        <div className="w-[705px] h-[405px] absolute left-[1053px] top-[700px] bg-blue-800/50 blur-[150px] rounded-full md:left-[560px] md:top-[650px] sm:top-[450px] sm:left-[150px]"></div>
+      <div className="w-[705px] h-[405px] absolute left-[-353px] top-[-198px] bg-blue-800/50 blur-[150px] rounded-full"></div>
 
+      <div>
         <section className="max-w-[1240px] h-screen my-0 mx-auto grid grid-cols-2 items-center justify-center gap-8 md:order-second md:grid-cols-1 p-6 ">
           <div
             className="w-full bg-[#272D37]/60 rounded-3xl sm:h-[350px] h-[589px] border border-solid border-sky-700 cursor-pointer"
