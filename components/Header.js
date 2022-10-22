@@ -21,7 +21,7 @@ const Header = () => {
   });
 
   return (
-    <div className="sticky top-0 z-[99999] w-full px-2 py-2 sm:px-4 transition-all">
+    <div className="sticky top-0 z-[60] w-full px-2 py-2 sm:px-4 transition-all">
       <div
         className={
           hasScrolled
