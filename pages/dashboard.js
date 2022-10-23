@@ -115,7 +115,7 @@ const Dashboard = () => {
         </div>
 
         {songs?.songs?.length === 0 && (
-          <div className="max-w-[1240px] mx-auto my-0 font-body">
+          <div className="max-w-[1240px] h-[350px] mx-auto my-0 font-body">
             <h1 className="text-2xl text-center">NO Songs</h1>
           </div>
         )}
