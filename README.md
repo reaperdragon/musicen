@@ -9,6 +9,7 @@
 - [x] Upload Song
 - [x] Search Songs
 - [x] Song Details
+- [x] Play Song
 
 ### Stack
 
