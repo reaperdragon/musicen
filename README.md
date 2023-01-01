@@ -2,8 +2,6 @@
 
 <img width="1600" alt="credit" src="https://user-images.githubusercontent.com/67114280/197378172-746ae3e6-0251-435b-b22d-5267ef412b5a.png">
 
-### Mucisen is Decentralize Music App Built with Next Js, Hardhat, Solidity, Arweave + Bundlr Client and all of the style magic with Tailwind CSS.🎵
-
 ### Functionalities
 
 - [x] Upload Song
